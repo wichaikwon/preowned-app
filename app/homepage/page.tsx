@@ -42,7 +42,7 @@ const Homepage: React.FC = () => {
 
   const submit = handleSubmit((data) => {
     if (!data.brand || !data.model || !data.storage) return
-    const queryParams = new URLSearchParams(data as any).toString()
+    const queryParams = new URLSearchParams(data as Record<string, string>).toString()
     window.location.href = `detail?${queryParams}`
 
   })
@@ -57,7 +57,9 @@ const Homepage: React.FC = () => {
           render={({ field }) => (
             <Dropdown
               label="เลือกยี่ห้อโทรศัพท์"
-              options={brand.map((b) => ({ id: b.brand_id, name: b.name }))}
+              options={brand
+          .filter((b) => b.brand_id === 1)
+          .map((b) => ({ id: b.brand_id, name: b.name }))}
               selected={field.value}
               setSelected={(value) => {
                 field.onChange(value)
